@@ -4,6 +4,8 @@
 * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
 */
 
+import { getHolidays } from "../data"
+
 /** Add fonts into your Next.js project:
 
 import { Libre_Franklin } from 'next/font/google'
@@ -17,18 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 - App Directory: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
-import Holidays from 'date-holidays'
-import Image from 'next/image'
-const hd = new Holidays()
-hd.init('TR')
-const today = new Date()
-const holidays = [...hd.getHolidays(today), ...hd.getHolidays(today.getFullYear() + 1)]
-  .filter(h => new Date(h.start).setHours(0, 0, 0, 0) >= +today)
 
-function getDaysBetweenDates(startDate: Date, endDate: Date) {
-  const days = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24)
-  return Math.round(days)
-}
 
 const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox="0 0 512 512" id="Layer_1" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
   <g>
@@ -41,6 +32,7 @@ const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox
 </svg>
 
 export function Main() {
+  const { holidays, getDaysBetweenDates } = getHolidays()
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <div className="grid gap-8">
@@ -75,7 +67,7 @@ export function Main() {
           </Select>
         </div> */}
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
-          <h2 className="text-2xl font-bold">Remaining Holidays</h2>
+          <h2 className="text-2xl font-bold">Yaklaşan Diğer Tatiller</h2>
           <div className="space-y-2">
             {holidays.slice(1, 4).map((h, idx) => (
               <div key={idx} className="flex items-center justify-between">
@@ -83,7 +75,7 @@ export function Main() {
                   <h3 className="text-lg font-semibold">{h.name}</h3>
                   <p className="text-gray-500 dark:text-gray-400">{h.start.toLocaleDateString('tr-TR')}</p>
                 </div>
-                <div className="bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{`${getDaysBetweenDates(today, h.start)}`}</div>
+                <div className="bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{`${getDaysBetweenDates(h.start)}`}</div>
               </div>
             ))}
           </div>
