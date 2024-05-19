@@ -34,11 +34,11 @@ const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox
 export function Main() {
   const { holidays, getDaysBetweenDates } = getHolidays()
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <div className="py-12 px-6 lg:px-8">
       <div className="grid gap-8">
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4 px-4 lg:px-8">
           <div className="flex flex-row">
-            <h2 className="text-2xl font-bold flex-1">Bir Sonraki Resmî Tatil</h2>
+            <h2 className="text-2xl font-bold flex-1 pr-4 lg:pr-8">Bir Sonraki Resmî Tatil</h2>
             {icon({ className: 'dark:fill-white' })}
           </div>
           <div className="flex items-center gap-4">
