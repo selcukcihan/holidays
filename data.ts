@@ -14,5 +14,6 @@ export function getHolidays() {
   return {
     holidays,
     getDaysBetweenDates: (date: Date) => daysBetweenDates(today, date),
+    isTodayPublicHoliday: hd.isHoliday(today),
   }
 }

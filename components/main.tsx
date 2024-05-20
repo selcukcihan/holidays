@@ -31,14 +31,27 @@ const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox
   </g>
 </svg>
 
+function getTodayAsDayOfMonthPlusMonthNamePlusDayName() {
+  const today = new Date()
+  const dayOfMonth = today.getDate()
+  const month = today.toLocaleString('tr-TR', { month: 'long' })
+  const dayName = today.toLocaleString('tr-TR', { weekday: 'long' })
+  return `${dayOfMonth} ${month} ${dayName}`
+}
+
 export function Main() {
-  const { holidays, getDaysBetweenDates } = getHolidays()
+  const { holidays, getDaysBetweenDates, isTodayPublicHoliday } = getHolidays()
   return (
-    <div className="py-12 px-6 lg:px-8">
-      <div className="grid gap-8">
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4 px-4 lg:px-8">
+    <div className="py-6 lg:py-12 px-6 lg:px-8 dark:text-white">
+      <div className="rounded-lg p-2 mb-2 text-center">
+        <h2 className="text-2xl font-bold">{`Bugün ${getTodayAsDayOfMonthPlusMonthNamePlusDayName()}`}</h2>
+        {isTodayPublicHoliday && <h2 className="text-2xl font-bold">{`${holidays[0].name}`}</h2>}
+        <p className="text-lg pt-2 lg:pt-4">Güzel bir gün geçirmenizi dileriz.</p>
+      </div>
+      <div className="grid gap-2 lg:gap-8">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
           <div className="flex flex-row">
-            <h2 className="text-2xl font-bold flex-1 pr-4 lg:pr-8">Bir Sonraki Resmî Tatil</h2>
+            <h2 className="text-2xl font-bold flex-1">Sıradaki Resmî Tatil</h2>
             {icon({ className: 'dark:fill-white' })}
           </div>
           <div className="flex items-center gap-4">
@@ -46,26 +59,9 @@ export function Main() {
               <h3 className="text-lg font-semibold">{holidays[0].name}</h3>
               <p className="text-gray-500 dark:text-gray-400">{holidays[0].start.toLocaleDateString('tr-TR')}</p>
             </div>
-            <div className="bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">23 gün sonra</div>
+            <div className="ml-4 min-w-24 text-center bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">23 gün</div>
           </div>
         </div>
-        {/* <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
-          <h2 className="text-2xl font-bold">Select Country</h2>
-          <Select>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select country" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="us">United States</SelectItem>
-                <SelectItem value="ca">Canada</SelectItem>
-                <SelectItem value="uk">United Kingdom</SelectItem>
-                <SelectItem value="au">Australia</SelectItem>
-                <SelectItem value="de">Germany</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div> */}
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
           <h2 className="text-2xl font-bold">Yaklaşan Diğer Tatiller</h2>
           <div className="space-y-2">
@@ -75,7 +71,7 @@ export function Main() {
                   <h3 className="text-lg font-semibold">{h.name}</h3>
                   <p className="text-gray-500 dark:text-gray-400">{h.start.toLocaleDateString('tr-TR')}</p>
                 </div>
-                <div className="bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{`${getDaysBetweenDates(h.start)}`}</div>
+                <div className="ml-4 text-center min-w-24 bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{`${getDaysBetweenDates(h.start)} gün`}</div>
               </div>
             ))}
           </div>
