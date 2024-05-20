@@ -57,7 +57,7 @@ export function Main() {
           <div className="flex items-center gap-4">
             <div className="flex-1">
               <h3 className="text-lg font-semibold">{holidays[0].name}</h3>
-              <p className="text-gray-500 dark:text-gray-400">{holidays[0].start.toLocaleDateString('tr-TR')}</p>
+              <p className="text-gray-500 dark:text-gray-400">{holidays[0].start.toLocaleDateString('tr-TR')} {holidays[0].start.toLocaleString('tr-TR', { weekday: 'long' })}</p>
             </div>
             <div className="ml-4 min-w-24 text-center bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">23 gün</div>
           </div>
@@ -65,11 +65,11 @@ export function Main() {
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
           <h2 className="text-2xl font-bold">Yaklaşan Diğer Tatiller</h2>
           <div className="space-y-2">
-            {holidays.slice(1, 4).map((h, idx) => (
+            {holidays.slice(1, 5).map((h, idx) => (
               <div key={idx} className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold">{h.name}</h3>
-                  <p className="text-gray-500 dark:text-gray-400">{h.start.toLocaleDateString('tr-TR')}</p>
+                  <p className="text-gray-500 dark:text-gray-400">{h.start.toLocaleDateString('tr-TR')} {h.start.toLocaleString('tr-TR', { weekday: 'long' })}</p>
                 </div>
                 <div className="ml-4 text-center min-w-24 bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{`${getDaysBetweenDates(h.start)} gün`}</div>
               </div>
