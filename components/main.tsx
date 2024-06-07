@@ -35,7 +35,7 @@ export function Main(props: any) {
     <div className="py-6 lg:py-12 px-6 lg:px-8 dark:text-white">
       <div className="rounded-lg p-2 mb-2 text-center">
         <h2 className="text-2xl font-bold">{`Bugün ${today}`}</h2>
-        {!isTodayPublicHoliday && <h3 className="text-xl">{`Maalesef tatil değil :(`}</h3>}
+        {!isTodayPublicHoliday && <h3 className="text-xl">{`Maalesef (henüz) tatil değil :(`}</h3>}
         {isTodayPublicHoliday && <h2 className="text-2xl font-bold">{`${holidays[0].name}`}</h2>}
         <p className="text-lg pt-2 lg:pt-4">Güzel bir gün geçirmenizi dileriz.</p>
       </div>
