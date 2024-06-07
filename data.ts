@@ -11,9 +11,21 @@ export function getHolidays() {
   const today = new Date()
   const holidays = [...hd.getHolidays(today), ...hd.getHolidays(today.getFullYear() + 1)]
     .filter(h => new Date(h.start).setHours(0, 0, 0, 0) >= +today)
+  
+  // holidays[0].start = today
+  // holidays[0].end = new Date(+today + 1000 * 3600 * 24 * 7)
+  // holidays[0].date = "FALAN"
   return {
     holidays,
     getDaysBetweenDates: (date: Date) => daysBetweenDates(today, date),
-    isTodayPublicHoliday: hd.isHoliday(today),
+    isTodayPublicHoliday: !!hd.isHoliday(today),
   }
+}
+
+export function getTodayAsDayOfMonthPlusMonthNamePlusDayName() {
+  const today = new Date()
+  const dayOfMonth = today.getDate()
+  const month = today.toLocaleString('tr-TR', { month: 'long' })
+  const dayName = today.toLocaleString('tr-TR', { weekday: 'long' })
+  return `${dayOfMonth} ${month} ${dayName}`
 }

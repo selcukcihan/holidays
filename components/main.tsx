@@ -4,8 +4,6 @@
 * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
 */
 
-import { getHolidays } from "../data"
-
 /** Add fonts into your Next.js project:
 
 import { Libre_Franklin } from 'next/font/google'
@@ -20,8 +18,6 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 
-export const revalidate = 300
-
 const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox="0 0 512 512" id="Layer_1" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
   <g>
     <path className="st0" d="M350.9,364.4c-3.2-0.3-6.4-0.5-9.7-0.5c-15.1,0-29.5,3.4-42.3,9.4c-16.1-19-36.9-33.9-60.8-42.7   c-4-1.5-8.2-2.8-12.4-3.9c-12.1-3.3-24.7-5-37.8-5c-17,0-33.2,2.9-48.3,8.3c-55.4,19.6-95.4,71.9-96.7,133.8H441   C441,411.9,401.5,369.3,350.9,364.4z M153.8,370.3c-28.2,10-50.6,31.9-61.5,60.1c-1.1,2.8-3.7,4.5-6.5,4.5c-0.8,0-1.7-0.1-2.5-0.5   c-3.6-1.4-5.4-5.4-4-9c12.3-32.1,37.8-56.9,69.9-68.3c3.7-1.3,7.6,0.6,8.9,4.3C159.4,365.1,157.5,369,153.8,370.3z"/>
@@ -32,20 +28,14 @@ const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox
   </g>
 </svg>
 
-function getTodayAsDayOfMonthPlusMonthNamePlusDayName() {
-  const today = new Date()
-  const dayOfMonth = today.getDate()
-  const month = today.toLocaleString('tr-TR', { month: 'long' })
-  const dayName = today.toLocaleString('tr-TR', { weekday: 'long' })
-  return `${dayOfMonth} ${month} ${dayName}`
-}
-
-export function Main() {
-  const { holidays, getDaysBetweenDates, isTodayPublicHoliday } = getHolidays()
+export function Main(props: any) {
+  const { holidays, getDaysBetweenDates, isTodayPublicHoliday, today } = props
+  const holidayIndex = isTodayPublicHoliday ? 1 : 0
   return (
     <div className="py-6 lg:py-12 px-6 lg:px-8 dark:text-white">
       <div className="rounded-lg p-2 mb-2 text-center">
-        <h2 className="text-2xl font-bold">{`Bugün ${getTodayAsDayOfMonthPlusMonthNamePlusDayName()}`}</h2>
+        <h2 className="text-2xl font-bold">{`Bugün ${today}`}</h2>
+        {!isTodayPublicHoliday && <h3 className="text-xl">{`Maalesef tatil değil :(`}</h3>}
         {isTodayPublicHoliday && <h2 className="text-2xl font-bold">{`${holidays[0].name}`}</h2>}
         <p className="text-lg pt-2 lg:pt-4">Güzel bir gün geçirmenizi dileriz.</p>
       </div>
@@ -57,16 +47,16 @@ export function Main() {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex-1">
-              <h3 className="text-lg font-semibold">{holidays[0].name}</h3>
-              <p className="text-gray-500 dark:text-gray-400">{holidays[0].start.toLocaleDateString('tr-TR')} {holidays[0].start.toLocaleString('tr-TR', { weekday: 'long' })}</p>
+              <h3 className="text-lg font-semibold">{holidays[holidayIndex].name}</h3>
+              <p className="text-gray-500 dark:text-gray-400">{holidays[holidayIndex].start.toLocaleDateString('tr-TR')} {holidays[holidayIndex].start.toLocaleString('tr-TR', { weekday: 'long' })}</p>
             </div>
-            <div className="ml-4 min-w-24 text-center bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">23 gün</div>
+            <div className="ml-4 min-w-24 text-center bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{getDaysBetweenDates(holidays[holidayIndex].start)} gün</div>
           </div>
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
           <h2 className="text-2xl font-bold">Yaklaşan Diğer Tatiller</h2>
           <div className="space-y-2">
-            {holidays.slice(1, 5).map((h, idx) => (
+            {holidays.slice(holidayIndex + 1).slice(0, 7).map((h: any, idx: number) => (
               <div key={idx} className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold">{h.name}</h3>
