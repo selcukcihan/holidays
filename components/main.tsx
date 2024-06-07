@@ -33,11 +33,9 @@ export function Main(props: any) {
   const holidayIndex = isTodayPublicHoliday ? 1 : 0
   return (
     <div className="py-6 lg:py-12 px-6 lg:px-8 dark:text-white">
-      <div className="rounded-lg p-2 mb-2 text-center">
+      <div className="rounded-lg p-2 mb-4 text-center">
         <h2 className="text-2xl font-bold">{`Bugün ${today}`}</h2>
-        {!isTodayPublicHoliday && <h3 className="text-xl">{`Maalesef (henüz) tatil değil :(`}</h3>}
         {isTodayPublicHoliday && <h2 className="text-2xl font-bold">{`${holidays[0].name}`}</h2>}
-        <p className="text-lg pt-2 lg:pt-4">Güzel bir gün geçirmenizi dileriz.</p>
       </div>
       <div className="grid gap-2 lg:gap-8">
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
