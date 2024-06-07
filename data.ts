@@ -24,8 +24,5 @@ export function getHolidays() {
 
 export function getTodayAsDayOfMonthPlusMonthNamePlusDayName() {
   const today = new Date()
-  const dayOfMonth = today.getDate()
-  const month = today.toLocaleString('tr-TR', { month: 'long' })
-  const dayName = today.toLocaleString('tr-TR', { weekday: 'long' })
-  return `${dayOfMonth} ${month} ${dayName}`
+  return today.toLocaleString('tr-TR', { month: 'long', day: 'numeric', weekday: 'long', timeZone: 'Europe/Istanbul' })
 }
