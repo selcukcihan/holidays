@@ -1,4 +1,6 @@
-import { Main } from "../components/main";
+export const revalidate = 300
+ 
+import { Main } from "../components/main"
 
 export default function Home() {
   return (

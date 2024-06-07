@@ -20,6 +20,7 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 
+export const revalidate = 300
 
 const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox="0 0 512 512" id="Layer_1" version="1.1" xmlSpace="preserve" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
   <g>
