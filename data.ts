@@ -10,7 +10,7 @@ export function getHolidays() {
   hd.init('TR')
   const today = new Date()
   const holidays = [...hd.getHolidays(today), ...hd.getHolidays(today.getFullYear() + 1)]
-    .filter(h => new Date(h.start).setHours(0, 0, 0, 0) >= +today)
+    .filter(h => new Date(h.end).setHours(0, 0, 0, 0) >= +today)
   
   // holidays[0].start = today
   // holidays[0].end = new Date(+today + 1000 * 3600 * 24 * 7)
