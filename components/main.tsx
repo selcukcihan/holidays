@@ -28,6 +28,10 @@ const icon = (props: any) => <svg {...props}  width="48px" height="48px" viewBox
   </g>
 </svg>
 
+function getDate(holiday: any) {
+  return new Date(holiday.date.split(' ')[0])
+}
+
 export function Main(props: any) {
   const { holidays, getDaysBetweenDates, isTodayPublicHoliday, today } = props
   const holidayIndex = isTodayPublicHoliday ? 1 : 0
@@ -46,9 +50,9 @@ export function Main(props: any) {
           <div className="flex items-center gap-4">
             <div className="flex-1">
               <h3 className="text-lg font-semibold">{holidays[holidayIndex].name}</h3>
-              <p className="text-gray-500 dark:text-gray-400">{holidays[holidayIndex].start.toLocaleDateString('tr-TR')} {holidays[holidayIndex].start.toLocaleString('tr-TR', { weekday: 'long' })}</p>
+              <p className="text-gray-500 dark:text-gray-400">{getDate(holidays[holidayIndex]).toLocaleDateString('tr-TR')} {getDate(holidays[holidayIndex]).toLocaleString('tr-TR', { weekday: 'long' })}</p>
             </div>
-            <div className="ml-4 min-w-24 text-center bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{getDaysBetweenDates(holidays[holidayIndex].start)} gün</div>
+            <div className="ml-4 min-w-24 text-center bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{getDaysBetweenDates(getDate(holidays[holidayIndex]))} gün</div>
           </div>
         </div>
         <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 space-y-4">
@@ -58,9 +62,9 @@ export function Main(props: any) {
               <div key={idx} className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold">{h.name}</h3>
-                  <p className="text-gray-500 dark:text-gray-400">{h.start.toLocaleDateString('tr-TR')} {h.start.toLocaleString('tr-TR', { weekday: 'long' })}</p>
+                  <p className="text-gray-500 dark:text-gray-400">{getDate(h).toLocaleDateString('tr-TR')} {getDate(h).toLocaleString('tr-TR', { weekday: 'long' })}</p>
                 </div>
-                <div className="ml-4 text-center min-w-24 bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{`${getDaysBetweenDates(h.start)} gün`}</div>
+                <div className="ml-4 text-center min-w-24 bg-gray-900 text-white dark:text-gray-900 font-semibold px-3 py-1 rounded-full dark:bg-gray-50">{`${getDaysBetweenDates(getDate(h))} gün`}</div>
               </div>
             ))}
           </div>
